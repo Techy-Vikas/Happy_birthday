@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;500;700&family=Playfair+Display:ital,wght@1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 class="title">Happy Birthday</h1>
+            <h2 class="subtitle">To My Baby ❤️</h2>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="arrow">↓</div>
+        </div>
+        <div class="floating-elements">
+            <!-- Decorative elements will be added via CSS/JS or pseudo-elements -->
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <h2 class="section-title">Our Beautiful Moments</h2>
+        <div class="gallery-container">
+            <div class="card">
+                <img src="assets/Image1.jpeg" alt="Happy Moment 1">
+                <div class="card-caption">Pure Joy</div>
+            </div>
+            <div class="card">
+                <img src="assets/image2.jpeg" alt="Happy Moment 2">
+                <div class="card-caption">Sunset Walks</div>
+            </div>
+            <div class="card">
+                <img src="assets/image3.jpeg" alt="Happy Moment 3">
+                <div class="card-caption">Cozy Vibes</div>
+            </div>
+            <div class="card">
+                <img src="assets/image4.jpeg" alt="Happy Moment 4">
+                <div class="card-caption">Forever Us</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Section -->
+    <section class="message" id="message">
+        <div class="message-content">
+            <h2 class="section-title">A Special Note</h2>
+            <p class="text gujarati-text">
+                તમારી સાથેનો દરેક દિવસ આશીર્વાદ સમાન લાગે છે. તમે મારા જીવનમાં ઘણો પ્રકાશ, હાસ્ય અને પ્રેમ લાવ્યા છો.
+                અમે જે પણ ક્ષણો સાથે વિતાવીએ છીએ તેના માટે હું ખૂબ જ આભારી છું, અને હું તમારા વિના મારી દુનિયાની કલ્પના
+                પણ કરી શકતો નથી.
+                તમે માત્ર મારા જીવનસાથી જ નહીં, પણ મારા શ્રેષ્ઠ મિત્ર અને મારા જીવનસાથી છો.
+            </p>
+            <p class="text gujarati-text">
+                આ વર્ષ તમને એટલી જ ખુશીઓ આપે જેટલી તમે તમારી આસપાસના દરેકને આપો છો.
+            </p>
+        </div>
+    </section>
+
+    <!-- Proposal Section -->
+    <section class="proposal" id="proposal">
+        <div class="proposal-content">
+            <h2 class="proposal-title">One Last Question...</h2>
+            <p class="proposal-text">I want to spend every birthday with you, forever.</p>
+            <h1 class="big-question">Will You Marry Me?</h1>
+            <button class="yes-btn" onclick="celebrate()">YES!</button>
+        </div>
+    </section>
+
+    <div id="video-overlay" class="hidden">
+        <button class="close-btn" onclick="closeVideo()">×</button>
+        <div class="video-container">
+            <video id="celebration-video" controls>
+                <source src="assets/video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <div id="confetti-container"></div>
+
+    <script>
+        function celebrate() {
+            const btn = document.querySelector('.yes-btn');
+            btn.innerHTML = "I Love You! ❤️";
+            btn.style.transform = "scale(1.2)";
+            btn.style.backgroundColor = "#ff4081";
+            btn.style.color = "#ffffff";
+
+            // Show Video Overlay
+            const overlay = document.getElementById('video-overlay');
+            const video = document.getElementById('celebration-video');
+
+            overlay.classList.add('active');
+            video.play();
+
+            // Simple confetti effect
+            const container = document.getElementById('confetti-container');
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                container.appendChild(confetti);
+            }
+        }
+
+        function closeVideo() {
+            const overlay = document.getElementById('video-overlay');
+            const video = document.getElementById('celebration-video');
+
+            overlay.classList.remove('active');
+            video.pause();
+            video.currentTime = 0;
+        }
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .text, .proposal-title, .big-question').forEach(el => {
+            observer.observe(el);
+            el.classList.add('hidden');
+        });
+
+        // Generate floating elements for Hero Section
+        const heroFloatingContainer = document.querySelector('.floating-elements');
+        const symbols = ['🎈', '❤️', '✨', '🎂'];
+
+        for (let i = 0; i < 20; i++) {
+            const floater = document.createElement('div');
+            floater.classList.add('floater');
+            floater.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            floater.style.left = Math.random() * 100 + '%';
+            floater.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+            floater.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            floater.style.animationDelay = (Math.random() * 5) + 's';
+            heroFloatingContainer.appendChild(floater);
+        }
+    </script>
+</body>
+
+</html>
